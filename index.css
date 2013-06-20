@@ -1,0 +1,11 @@
+.gameSquare {
+	float:left;
+	border:1px solid green;
+	border-radius:20%;
+	background-color:tan;
+}
+
+.snake {
+	background-color:green;
+	border-color:tan;
+}

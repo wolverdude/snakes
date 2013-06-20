@@ -1,8 +1,8 @@
-(function() {
+Snake = (function() {
 
 	function Snake() {
 
 	}
 
-	return {Snake: Snake}
+	return Snake
 })();
