@@ -43,14 +43,33 @@ Snake.init = function() {
 		});
 	}
 
-	game = new Snake.Game()
+	var game
+	var playLoop
 
 	$("#init").click(function() {
 		$(".message").html("You pressed the button!")
 
+		if (playLoop) {
+			window.clearInterval(playLoop);
+			$GAME_SPACE.find('.snake').removeClass('snake');
+			$GAME_SPACE.find('.head').removeClass('head');
+			$GAME_SPACE.find('.apple').removeClass('apple');
+		}
+		game = new Snake.Game(ROWS, COLS)
 
-		window.setInterval(function() {
+		_.each(game.board.walls, function(pos) {
+			id = "#" + pos.row + "-" + pos.col
+			$GAME_SPACE.find(id).addClass('wall');
+		});
+
+		playLoop = window.setInterval(function() {
 			var diffs = game.step()
+
+			if (diffs === "FAIL") {
+				window.clearInterval(playLoop)
+				$(".message").html("Snaking FAIL!")
+				return
+			}
 
 			$GAME_SPACE.find(".head").removeClass('head')
 
@@ -61,6 +80,12 @@ Snake.init = function() {
 				var oldTailId = "#" + diffs.oldTail.row + "-" + diffs.oldTail.col
 				$GAME_SPACE.find(oldTailId).removeClass('snake')
 			}
+
+			$GAME_SPACE.find(".apple").removeClass('apple')
+			_.each(game.board.apples, function(pos) {
+				id = "#" + pos.row + "-" + pos.col
+				$GAME_SPACE.find(id).addClass('apple');
+			});
 		}, STEP_TIME_MSEC);
 
 		key('up', function() { game.snake.turn("north") });
@@ -71,10 +96,6 @@ Snake.init = function() {
 	});
 
 	generateBoard(ROWS, COLS)
-	var space = $GAME_SPACE.find("#5-5")
-	console.log(space)
-	space.addClass('apple')
-	$GAME_SPACE.find("#7-7").addClass('wall')
 }
 
 $(Snake.init)

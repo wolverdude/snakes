@@ -5,13 +5,9 @@
 	background-color:tan;
 }
 
-.snake {
-	background-color:green;
-	border-color:green;
-}
-
-.head {
-	border-color:yellow;
+.wall {
+	background-color:gray;
+	border-color:black;
 }
 
 .apple {
@@ -19,7 +15,11 @@
 	border-color:brown;
 }
 
-.wall {
-	background-color:gray;
-	border-color:black;
+.snake {
+	background-color:green;
+	border-color:green;
+}
+
+.head {
+	border-color:yellow;
 }
